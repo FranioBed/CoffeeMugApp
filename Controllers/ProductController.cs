@@ -27,7 +27,7 @@ namespace CoffeeMugApp.Controllers
         }
 
         [HttpGet]
-        public async Task<List<Product>> Get(){
+        public async Task<List<Product>> GetAll(){
             return await _context.Product.ToListAsync();
         }
 
@@ -90,8 +90,7 @@ namespace CoffeeMugApp.Controllers
             return View(product);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost("")]
         public async Task<IActionResult> Post([FromBody] ProductCreateRequestDto productCreateRequestDto)
         {
             if (ModelState.IsValid)
@@ -234,7 +233,7 @@ namespace CoffeeMugApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpPost, ActionName("Remove")]
+        [HttpDelete("{id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(Guid id)
         {
